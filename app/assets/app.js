@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "30133be0b25bb9b91004"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "f39b0781bec322ab69e4"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -569,34 +569,6 @@
 
 	console.log("Starting", email, password, source);
 
-	superagent.get(urlBase + '/checkemail/' + email).end(printResults('check email'));
-
-	superagent.post(urlBase + '/login').send({
-	  email: email,
-	  password: password,
-	  provider: 'cognito-identity.amazonaws.com'
-	}).end(printResults('login fails'));
-
-	setTimeout(function () {
-
-	  superagent.post(urlBase + '/register').send({
-	    email: email,
-	    password: password,
-	    provider: 'cognito-identity.amazonaws.com',
-	    source: source
-	  }).end(printResults('register'));
-
-	  setTimeout(function () {
-
-	    superagent.post(urlBase + '/login').send({
-	      email: email,
-	      password: password,
-	      provider: 'cognito-identity.amazonaws.com',
-	      source: source
-	    }).end(printResults('login succeeds'));
-	  }, 5000);
-	}, 3000);
-
 	if (window.XDomainRequest) {
 	  console.log("XDR Test");
 	  var xdr = new XDomainRequest();
@@ -616,6 +588,34 @@
 	  }, 0);
 	} else {
 	  console.log("No XDR Test");
+
+	  superagent.get(urlBase + '/checkemail/' + email).end(printResults('check email'));
+
+	  superagent.post(urlBase + '/login').send({
+	    email: email,
+	    password: password,
+	    provider: 'cognito-identity.amazonaws.com'
+	  }).end(printResults('login fails'));
+
+	  setTimeout(function () {
+
+	    superagent.post(urlBase + '/register').send({
+	      email: email,
+	      password: password,
+	      provider: 'cognito-identity.amazonaws.com',
+	      source: source
+	    }).end(printResults('register'));
+
+	    setTimeout(function () {
+
+	      superagent.post(urlBase + '/login').send({
+	        email: email,
+	        password: password,
+	        provider: 'cognito-identity.amazonaws.com',
+	        source: source
+	      }).end(printResults('login succeeds'));
+	    }, 5000);
+	  }, 3000);
 	}
 
 /***/ },

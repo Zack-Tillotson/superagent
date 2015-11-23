@@ -19,48 +19,6 @@ function printResults(name) {
 
 console.log("Starting", email, password, source);
 
-superagent
-  .get(urlBase + '/checkemail/' + email)
-  .end(printResults('check email'));
-
-superagent
-  .post(urlBase + '/login')
-  .send({
-    email: email, 
-    password: password,
-    provider: 'cognito-identity.amazonaws.com'
-  })
-  .end(printResults('login fails'));
-
-setTimeout(function() {
-
-  superagent
-    .post(urlBase + '/register')
-    .send({
-      email: email, 
-      password: password,
-      provider: 'cognito-identity.amazonaws.com',
-      source: source
-    })
-    .end(printResults('register'));
-
-    setTimeout(function() {
-
-      superagent
-        .post(urlBase + '/login')
-        .send({
-          email: email, 
-          password: password,
-          provider: 'cognito-identity.amazonaws.com',
-          source: source
-        })
-        .end(printResults('login succeeds'));
-
-    }, 5000);
-
-}, 3000);
-
-
 if(window.XDomainRequest){
   console.log("XDR Test");
   var xdr = new XDomainRequest();
@@ -78,4 +36,45 @@ if(window.XDomainRequest){
   setTimeout(function () {xdr.send();}, 0);
 } else {
   console.log("No XDR Test");
+
+  superagent
+    .get(urlBase + '/checkemail/' + email)
+    .end(printResults('check email'));
+
+  superagent
+    .post(urlBase + '/login')
+    .send({
+      email: email, 
+      password: password,
+      provider: 'cognito-identity.amazonaws.com'
+    })
+    .end(printResults('login fails'));
+
+  setTimeout(function() {
+
+    superagent
+      .post(urlBase + '/register')
+      .send({
+        email: email, 
+        password: password,
+        provider: 'cognito-identity.amazonaws.com',
+        source: source
+      })
+      .end(printResults('register'));
+
+      setTimeout(function() {
+
+        superagent
+          .post(urlBase + '/login')
+          .send({
+            email: email, 
+            password: password,
+            provider: 'cognito-identity.amazonaws.com',
+            source: source
+          })
+          .end(printResults('login succeeds'));
+
+      }, 5000);
+
+  }, 3000);
 }
