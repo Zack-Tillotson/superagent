@@ -59,3 +59,23 @@ setTimeout(function() {
     }, 5000);
 
 }, 3000);
+
+
+if(window.XDomainRequest){
+  console.log("XDR Test");
+  var xdr = new XDomainRequest();
+  xdr.open("get", urlBase + '/checkemail/' + email);
+  xdr.onprogress = function () { };
+  xdr.ontimeout = function () { };
+  xdr.onerror = function () { 
+    console.log("xdr error!");
+    console.log(xdr.responseText);
+  };
+  xdr.onload = function() {
+    console.log("xdr success!");
+    console.log(xdr.responseText);
+  }
+  setTimeout(function () {xdr.send();}, 0);
+} else {
+  console.log("No XDR Test");
+}
