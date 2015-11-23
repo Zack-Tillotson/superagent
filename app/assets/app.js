@@ -54,7 +54,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "e03ab71e6c04f0894a04"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "30133be0b25bb9b91004"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -596,6 +596,27 @@
 	    }).end(printResults('login succeeds'));
 	  }, 5000);
 	}, 3000);
+
+	if (window.XDomainRequest) {
+	  console.log("XDR Test");
+	  var xdr = new XDomainRequest();
+	  xdr.open("get", urlBase + '/checkemail/' + email);
+	  xdr.onprogress = function () {};
+	  xdr.ontimeout = function () {};
+	  xdr.onerror = function () {
+	    console.log("xdr error!");
+	    console.log(xdr.responseText);
+	  };
+	  xdr.onload = function () {
+	    console.log("xdr success!");
+	    console.log(xdr.responseText);
+	  };
+	  setTimeout(function () {
+	    xdr.send();
+	  }, 0);
+	} else {
+	  console.log("No XDR Test");
+	}
 
 /***/ },
 /* 1 */
