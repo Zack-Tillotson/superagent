@@ -1,10 +1,10 @@
-const superagent = require('superagent');
+var superagent = require('superagent');
 
-const urlBase = 'https://6u9mkuqp8j.execute-api.us-east-1.amazonaws.com/dev/account';
+var urlBase = 'https://6u9mkuqp8j.execute-api.us-east-1.amazonaws.com/dev/account';
 
-const email = "test" + parseInt(Math.random() * 100000000000) + "@gh.com";
-const password = 'Healthgrades1';
-const source = 'oas';
+var email = "test" + parseInt(Math.random() * 100000000000) + "@gh.com";
+var password = 'Healthgrades1';
+var source = 'oas';
 
 function printResults(name) {
   return function(err, res) {
